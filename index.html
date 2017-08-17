@@ -29,39 +29,7 @@
 
         <!--Custom Style Sheet Link-->        
         <link rel="stylesheet" href="assets/css/style.css"> 
-        <style>
-            html,body{
-              margin: 0;
-              padding: 0;
-              width: 100%;
-            }
-
-            button[disabled], html input[disabled] {
-                cursor: not-allowed;
-            }
-
-            .cursor_pointer{
-                cursor: pointer;
-            }
-
-            .loan_app_btn_sty{
-                text-decoration: none;
-                color: #fff;
-                background-color: #26a69a;
-                text-align: center;
-                letter-spacing: .5px;
-                transition: .2s ease-out;
-                cursor: pointer;
-                z-index: -1;
-            }
-
-            
-            tbody.search_block tr td input{
-                padding-left: 0.7em;
-            }
-            
-        </style>
-        
+ 
     </head>
 
     <body ng-controller="myCtrl">
@@ -391,7 +359,7 @@
           </div>
         </section>
         <section>
-        <br><br>
+            <br><br>
             <div class="container-fluid text-center">
 
                 
@@ -444,16 +412,5 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/colResizable.min.js"></script>
-     <script type="text/javascript">
-        $(function(){   
-            $("#loanmeet_table").colResizable({
-                liveDrag:true, 
-                gripInnerHtml:"<div class='grip'></div>", 
-                draggingClass:"dragging", 
-                resizeMode:'overflow',
-                disabledColumns: [0]
-            });
-        }); 
-      </script>
     </body>
 </html>

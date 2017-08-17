@@ -1,0 +1,29 @@
+html,body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+button[disabled], html input[disabled] {
+    cursor: not-allowed;
+}
+
+.cursor_pointer,
+#loanmeet_table thead tr th{
+    cursor: pointer;
+}
+
+.loan_app_btn_sty{
+    text-decoration: none;
+    color: #fff;
+    background-color: #26a69a;
+    text-align: center;
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+    cursor: pointer;
+    z-index: -1;
+}
+
+tbody.search_block tr td input{
+    padding-left: 0.7em;
+}
