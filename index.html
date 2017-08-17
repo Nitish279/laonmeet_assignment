@@ -1,0 +1,459 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" ng-app="myApp"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>Loanmeet Test Assignment</title>
+        <meta name="description" content="Loanmeet Online Test Assignment">
+        <meta name="keywords" content="Online Test, Test Assignment, Loanmeet task, Loanmeet frontend developer task">
+        <meta name='author' content='Nitish Anand, n.nitish131@gmail.com'>
+        <meta name='copyright' content='Loanmeet'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+        <!--Google Font link-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+        <!--External library css links-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+
+        <!--Fontawesome css Link -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!--Animate css Link -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
+
+        <!--Custom Style Sheet Link-->        
+        <link rel="stylesheet" href="assets/css/style.css"> 
+        <style>
+            html,body{
+              margin: 0;
+              padding: 0;
+              width: 100%;
+            }
+
+            button[disabled], html input[disabled] {
+                cursor: not-allowed;
+            }
+
+            .cursor_pointer{
+                cursor: pointer;
+            }
+
+            .loan_app_btn_sty{
+                text-decoration: none;
+                color: #fff;
+                background-color: #26a69a;
+                text-align: center;
+                letter-spacing: .5px;
+                transition: .2s ease-out;
+                cursor: pointer;
+                z-index: -1;
+            }
+
+            
+            tbody.search_block tr td input{
+                padding-left: 0.7em;
+            }
+            
+        </style>
+        
+    </head>
+
+    <body ng-controller="myCtrl">
+     
+      <!-- Main Content -->
+        <br/><br/><br/>
+        <section id="loanmeet_table_block">
+          <div class="container-fluid">
+              <table class="table table-hover table-bordered" id="loanmeet_table">
+                <thead>
+                  <tr>
+                    <th class="disabled" style="width: 50px !important;"></th>
+                    <th ng-show="id" ng-click="sort('id')">User Id
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="name" ng-click="sort('name')">Name
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="phone_number" ng-click="sort('phone_number')">Phone
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='phone_number'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="loan_type" ng-click="sort('loan_type')">Primary Loan Type
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='loan_type'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="approval_process_status" ng-click="sort('approval_process_status')">Status
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='approval_process_status'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="approval_process_user_bucket_id" ng-click="sort('approval_process_user_bucket_id')">Bucket User
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='approval_process_user_bucket_id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+
+                    <th ng-show="email" ng-click="sort('email')">Email
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='email'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="created_at" ng-click="sort('created_at')">Created At
+                       <span class="glyphicon sort-icon" ng-show="sortKey=='created_at'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="updated_at" ng-click="sort('updated_at')">Updated At
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='updated_at'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="total_lines" ng-click="sort('total_lines')">Total Lines
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='total_lines'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="approved_lines" ng-click="sort('approved_lines')">Approved Lines
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='approved_lines'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="total_credit_limit" ng-click="sort('total_credit_limit')">Total Credit Limit
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='total_credit_limit'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="total_outstanding_balance" ng-click="sort('total_outstanding_balance')">Total Outstanding Balance
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='total_outstanding_balance'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    <th ng-show="approval_process_log" ng-click="sort('approval_process_log')">Approval Process Log
+                        <span ng-class="getSortClass('approval_process_log')"></span>
+                    </th>
+                    <th ng-show="approval_process_comments" ng-click="sort('approval_process_comments')">Approval Process Comments
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='approval_process_comments'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="approval_process_user_bucket_type" ng-click="sort('approval_process_user_bucket_type')">Approval Process User Bucket Type
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='approval_process_user_bucket_type'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-show="approval_process_processing_complete_status" ng-click="sort('approval_process_processing_complete_status')">Approval Process Processing Complete Status
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='approval_process_processing_complete_status'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>                    
+                  </tr>
+                </thead>
+                <tbody class="search_block">
+                    <tr>
+                        <td class="disabled"></td>
+                        <td ng-show="id">
+                            <input type="search" name="" value="" ng-model="search.id" placeholder="User Id">
+                        </td>
+                        <td ng-show="name">
+                            <input type="search" name="" value="" ng-model="search.name" placeholder="Name">
+                        </td>
+                        <td ng-show="phone_number">
+                            <input type="search" name="" value="" ng-model="search.phone_number" placeholder="Phone">
+                        </td>
+                        <td ng-show="loan_type">
+                            <input type="search" name="" value="" ng-model="search.loan_type" placeholder="Primary Loan Type">
+                        </td>
+                        <td ng-show="approval_process_status">
+                            <input type="search" name="" value="" ng-model="search.approval_process_status" placeholder="Status">
+                        </td>
+                        <td ng-show="approval_process_user_bucket_id">
+                            <input type="search" name="" value="" ng-model="search.approval_process_user_bucket_id" placeholder="Bucket User">
+                        </td>
+
+
+                        <td ng-show="email">
+                            <input type="search" name="" value="" ng-model="search.email" placeholder="Email">
+                        </td>
+                        <td ng-show="created_at">
+                            <input type="search" name="" value="" ng-model="search.created_at" placeholder="Created At">
+                        </td>
+                        <td ng-show="updated_at">
+                            <input type="search" name="" value="" ng-model="search.updated_at" placeholder="Updated At">
+                        </td>
+                        <td ng-show="total_lines">
+                            <input type="search" name="" value="" ng-model="search.total_lines" placeholder="Total Lines">
+                        </td>
+                        <td ng-show="approved_lines">
+                            <input type="search" name="" value="" ng-model="search.approved_lines" placeholder="Approved Lines">
+                        </td>
+                        <td ng-show="total_credit_limit">
+                            <input type="search" name="" value="" ng-model="search.total_credit_limit" placeholder="Total Credit Limit">
+                        </td>
+                        <td ng-show="total_outstanding_balance">
+                            <input type="search" name="" value="" ng-model="search.total_outstanding_balance" placeholder="Total Outstanding Balance">
+                        </td>
+                        <td ng-show="approval_process_log">
+                            <input type="search" name="" value="" ng-model="search.approval_process_log" placeholder="Approval Process Log">
+                        </td>
+                        <td ng-show="approval_process_comments">
+                            <input type="search" name="" value="" ng-model="search.approval_process_comments" placeholder="Approval Process Comments">
+                        </td>
+                        <td ng-show="approval_process_user_bucket_type">
+                            <input type="search" name="" value="" ng-model="search.approval_process_user_bucket_type" placeholder="Approval Process User Bucket Type">
+                        </td>
+                        <td ng-show="approval_process_processing_complete_status">
+                            <input type="search" name="" value="" ng-model="search.approval_process_processing_complete_status" placeholder="Approval Process Processing Complete Status">
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody class="main_data_table" ng-repeat="data in userDetails.users | orderBy:sortKey:reverse | filter:search | filter:q | startFrom:userDetails.page*rowSize | limitTo:rowSize">
+                    <tr>
+                        <td class="text-center disabled">
+                            <span ng-click="show($index)">
+                                <i ng-hide="data.show" class="fa fa-chevron-right cursor_pointer" aria-hidden="true"></i>
+                                <i ng-show="data.show" class="fa fa-chevron-down cursor_pointer" aria-hidden="true"></i>
+                            </span>
+                        </td>
+                        <td ng-class="qwe" ng-show="id">{{data.id}}</td> 
+                        <td ng-class="qwe" ng-show="name">{{data.name}}</td>
+                        <td ng-class="qwe" ng-show="phone_number">{{data.phone_number}}</td>
+                        <td ng-class="qwe" ng-show="loan_type">{{data.loan_type}}</td>
+                        <td ng-class="qwe" ng-show="approval_process_status" class="loan_app_btn_sty">{{data.approval_process_status}}</td>
+                        <td ng-class="qwe" ng-show="approval_process_user_bucket_id">{{data.approval_process_user_bucket_id}}</td>
+                        
+                        <td ng-class="qwe" ng-show="email">{{data.email}}</td>
+                        <td ng-class="qwe" ng-show="created_at">{{data.created_at | date }}</td>
+                        <td ng-class="qwe" ng-show="updated_at">{{data.updated_at | date }}</td>
+                        <td ng-class="qwe" ng-show="total_lines">{{data.total_lines}}</td>
+                        <td ng-class="qwe" ng-show="approved_lines">{{data.approved_lines}}</td>
+                        <td ng-class="qwe" ng-show="total_credit_limit">{{data.total_credit_limit}}</td>
+                        <td ng-class="qwe" ng-show="total_outstanding_balance">{{data.total_outstanding_balance}}</td>
+                        <td ng-class="qwe" ng-show="approval_process_log">{{data.approval_process_log}}</td>
+                        <td ng-class="qwe" ng-show="approval_process_comments">{{data.approval_process_comments}}</td>
+                        <td ng-class="qwe" ng-show="approval_process_user_bucket_type">{{data.approval_process_user_bucket_type}}</td>
+                        <td ng-class="qwe" ng-show="approval_process_processing_complete_status">{{data.approval_process_processing_complete_status}}</td>
+                    </tr>
+                    <tr ng-show="data.show === true">
+                        <td colspan="18">
+                            <div width="100%" height="100%">
+                            <div>
+                                <h2 class="text-center">shotang_credit_lines</h2>
+                                <table style="" class="table table-hover table-bordered sub_table">
+                                    <thead>
+                                      <tr>
+                                        <th>Id</th>
+                                        <th>total_credit_limit</th>
+                                        <th>outstanding_balance</th>
+                                        <th>available_credit</th>
+                                        <th>amount_in_process</th>
+                                        <th>blocked_amount</th>
+                                        <th>shotang_username</th>
+                                        <th>credit_tenure</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th> 
+                                        <th>credit_tenure</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody ng-repeat="subDetail in data.shotang_credit_lines">
+                                        <tr>
+                                            <td>{{subDetail.id}}</td>
+                                            <td>{{subDetail.total_credit_limit}}</td>
+                                            <td>{{subDetail.outstanding_balance}}</td>
+                                            <td>{{subDetail.available_credit}}</td>
+                                            <td>{{subDetail.amount_in_process}}</td>
+                                            <td>{{subDetail.blocked_amount}}</td>
+                                            <td>{{subDetail.credit_tenure}}</td>
+                                            <td>{{subDetail.credit_line_type}}</td>
+                                            <td>{{subDetail.interest_rate}}</td>
+                                            <td>{{subDetail.offers}}</td> 
+                                            <td>{{subDetail.primary_credit_bank_account_no}}</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <div>
+                                <h2 class="text-center">cash_credit_lines</h2>
+                                <table style="" class="table table-hover table-bordered sub_table">
+                                    <thead>
+                                      <tr>
+                                        <th>Id</th>
+                                        <th>total_credit_limit</th>
+                                        <th>outstanding_balance</th>
+                                        <th>available_credit</th>
+                                        <th>amount_in_process</th>
+                                        <th>blocked_amount</th>
+                                        <th>shotang_username</th>
+                                        <th>credit_tenure</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th> 
+                                        <th>credit_tenure</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody ng-repeat="subDetail in data.cash_credit_lines">
+                                        <tr>
+                                            <td>{{subDetail.id}}</td>
+                                            <td>{{subDetail.total_credit_limit}}</td>
+                                            <td>{{subDetail.outstanding_balance}}</td>
+                                            <td>{{subDetail.available_credit}}</td>
+                                            <td>{{subDetail.amount_in_process}}</td>
+                                            <td>{{subDetail.blocked_amount}}</td>
+                                            <td>{{subDetail.credit_tenure}}</td>
+                                            <td>{{subDetail.credit_line_type}}</td>
+                                            <td>{{subDetail.interest_rate}}</td>
+                                            <td>{{subDetail.offers}}</td> 
+                                            <td>{{subDetail.primary_credit_bank_account_no}}</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <div>
+                                <h2 class="text-center">distributor_credit_lines</h2>
+                                <table style="" class="table table-hover table-bordered sub_table">
+                                    <thead>
+                                      <tr>
+                                        <th>Id</th>
+                                        <th>total_credit_limit</th>
+                                        <th>outstanding_balance</th>
+                                        <th>available_credit</th>
+                                        <th>amount_in_process</th>
+                                        <th>blocked_amount</th>
+                                        <th>shotang_username</th>
+                                        <th>credit_tenure</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th> 
+                                        <th>credit_tenure</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody ng-repeat="subDetail in data.distributor_credit_lines">
+                                        <tr>
+                                            <td>{{subDetail.id}}</td>
+                                            <td>{{subDetail.total_credit_limit}}</td>
+                                            <td>{{subDetail.outstanding_balance}}</td>
+                                            <td>{{subDetail.available_credit}}</td>
+                                            <td>{{subDetail.amount_in_process}}</td>
+                                            <td>{{subDetail.blocked_amount}}</td>
+                                            <td>{{subDetail.credit_tenure}}</td>
+                                            <td>{{subDetail.credit_line_type}}</td>
+                                            <td>{{subDetail.interest_rate}}</td>
+                                            <td>{{subDetail.offers}}</td> 
+                                            <td>{{subDetail.primary_credit_bank_account_no}}</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <div>
+                                <h2 class="text-center">working_capital_loans</h2>
+                                <table style="" class="table table-hover table-bordered sub_table">
+                                    <thead>
+                                      <tr>
+                                        <th>Id</th>
+                                        <th>total_credit_limit</th>
+                                        <th>outstanding_balance</th>
+                                        <th>available_credit</th>
+                                        <th>amount_in_process</th>
+                                        <th>blocked_amount</th>
+                                        <th>shotang_username</th>
+                                        <th>credit_tenure</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th> 
+                                        <th>credit_tenure</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody ng-repeat="subDetail in data.working_capital_loans">
+                                        <tr>
+                                            <td>{{subDetail.id}}</td>
+                                            <td>{{subDetail.total_credit_limit}}</td>
+                                            <td>{{subDetail.outstanding_balance}}</td>
+                                            <td>{{subDetail.available_credit}}</td>
+                                            <td>{{subDetail.amount_in_process}}</td>
+                                            <td>{{subDetail.blocked_amount}}</td>
+                                            <td>{{subDetail.credit_tenure}}</td>
+                                            <td>{{subDetail.credit_line_type}}</td>
+                                            <td>{{subDetail.interest_rate}}</td>
+                                            <td>{{subDetail.offers}}</td> 
+                                            <td>{{subDetail.primary_credit_bank_account_no}}</td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div>
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+            <br /><br />
+
+            <form name="myForm" action="">
+                <label class="checkbox-inline col-md-2" style="margin-left: 10px;">
+                    <input type="checkbox" ng-model="id" ng-checked="true">User Id
+                </label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="name" ng-checked="true">Name</label>
+                 <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="phone_number" ng-checked="true">Phone</label>
+                 <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="loan_type" ng-checked="true">Primary Loan Type</label>
+                 <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="approval_process_status" ng-checked="true">Status</label>
+                 <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="approval_process_user_bucket_id" ng-checked="true">Bucket</label>
+
+
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="email">Email</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="created_at">Created At</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="updated_at">Updated At</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="total_lines">Total Lines</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="approved_lines">Approved Lines</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="total_credit_limit">Total Credit Lines</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="total_outstanding_balance">Total Outsatnding Balance</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="approval_process_log">Approval Process Log</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="approval_process_comments">Approval Process Comments</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="approval_process_user_bucket_type">Bucket User Type</label>
+                <label class="checkbox-inline col-md-2"><input type="checkbox" ng-model="approval_process_processing_complete_status">Approal Processing Status</label>
+            </form>
+          </div>
+        </section>
+        <section>
+        <br><br>
+            <div class="container-fluid text-center">
+
+                
+                
+                <button  ng-disabled="userDetails.page == 0" ng-click="userDetails.page=userDetails.page-1">
+                    &larr; Previous
+                </button>
+                
+                <span><input type="number" min="0" max="{{numberOfPages()}}" ng-model="userDetails.page"> of {{numberOfPages()}}</span>
+
+                <select ng-model="rowSize" ng-options="row.value as row.name for row in rowSizeList"></select>
+                
+                <button ng-disabled="userDetails.page >= getData().length/rowSize - 1" ng-click="userDetails.page=userDetails.page+1">
+                    Next &rarr;
+                </button>
+            </div>
+            
+            <!-- <div> q: {{getData().length}}</div>
+            <div> nn: {{getData()}}</div>
+            <div> osbobcoab {{getData().length/rowSize - 1}}</div>
+
+
+            <br/>
+            <div> current_page_no: {{userDetails.page + 1}}</div>
+            <div>no_of_rows_per_page: {{rowSize}}</div>
+            <div>No of Pages: {{numberOfPages()}}</div> -->
+        </section>
+
+        <br><br>
+
+        
+      <!--End of Main content -->
+
+    <!--External library js links-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- If CDN Links fails -->
+    <script type="text/javascript" async>
+        window.jQuery || document.write("<script src='assets/js/jquery.min.js'><\/script>");
+        window.jQuery || document.write('<script src="assets/js/bootstrap.min.js"><\/script>');
+        window.jQuery || document.write('<link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="screen">');
+        window.jQuery || document.write('<link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css">');
+    </script>
+
+    <!--Custom Js Link-->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/colResizable.min.js"></script>
+     <script type="text/javascript">
+        $(function(){   
+            $("#loanmeet_table").colResizable({
+                liveDrag:true, 
+                gripInnerHtml:"<div class='grip'></div>", 
+                draggingClass:"dragging", 
+                resizeMode:'overflow',
+                disabledColumns: [0]
+            });
+        }); 
+      </script>
+    </body>
+</html>
